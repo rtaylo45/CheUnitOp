@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
+import sys
 
 from CheUnitOp.system import GenericSystem
 from CheUnitOp.component import GenericTank, InletBoundaryCondition, OutletBoundaryCondition
@@ -70,5 +71,3 @@ plt.xlabel("Time [sec]")
 plt.ylabel("Concentration")
 plt.show()
 
-
-#testSystem.printInfo()

@@ -132,7 +132,7 @@ class GenericSystem:
         # Unpacks the final solution to a dict for easy access
         self.__buildSolutionData()
 
-    def plot(self):
+    def plot(self, speciesName):
         """
         Plots the solution
         """

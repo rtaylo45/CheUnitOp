@@ -6,6 +6,7 @@ from scipy.linalg import expm
 import matplotlib.pyplot as plt
 
 from CheUnitOp.species import ComponentSpecies
+import CheUnitOp.solver as CheUnitOpSolver
 
 class GenericSystem:
     """
@@ -24,7 +25,7 @@ class GenericSystem:
         self.globalSpecies = []
         self.components = []
         self.boundaryComponents = []
-        self.solver = None
+        self.solver = CheUnitOpSolver.Factory("scipy")
         self.areComponentFinalized = False
         self.areSpeciesFinalized = False
         self.solutionData = None
@@ -108,14 +109,14 @@ class GenericSystem:
         """
         pass
 
-    def setSolver(self, solver):
+    def setSolver(self, solverName):
         """
         Sets the solver for the system
 
         Args:
-            solver: The solver object
+            solverName: The solver object name
         """
-        self.solver = solver
+        self.solver = CheUnitOpSolver.Factory(solverName)
 
     def solve(self, tEnd, numSteps):
         """
@@ -130,7 +131,7 @@ class GenericSystem:
         A = A.toarray()
         for step in range(1, numSteps+1):
             b = self.__buildInitialCondition()
-            sol = expm(A * dt) @ b
+            sol = self.solver.solve(A, b, dt)
             self.__unpackSolution(sol)
         # Unpacks the final solution to a dict for easy access
         self.__buildSolutionData()

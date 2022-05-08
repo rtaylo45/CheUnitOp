@@ -1,12 +1,13 @@
 import numpy as np
 import scipy.linalg
 from abc import ABC, abstractmethod
+import CheUnitOp.solvers.matrixExponential.factory as matExp
 
 
 class ODESolverBase(ABC):
     """Something"""
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         pass
 
 
@@ -31,8 +32,8 @@ class ODELinearSolverBase(ODESolverBase):
     isLinearSolver = True
 
     
-    def __init__(self):
-        super(LinearSolverBase, self).__init__()
+    def __init__(self, **kwargs):
+        super(ODELinearSolverBase, self).__init__(**kwargs)
 
 
 class ODEExponentialTimeDifferencing(ODELinearSolverBase):
@@ -41,8 +42,9 @@ class ODEExponentialTimeDifferencing(ODELinearSolverBase):
     isExponentialTimeDifferencing = True
 
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """Something"""
+        super(ODEExponentialTimeDifferencing, self).__init__(**kwargs)
         self.matrixExp = scipy.linalg
 
     
@@ -58,9 +60,9 @@ class ODEExponentialTimeDifferencing(ODELinearSolverBase):
         pass
 
 
-def Factory(solverName):
+def Factory(solverName, **kwargs):
     solverOptions = {
         "scipy": ODEExponentialTimeDifferencing
     }
-    return solverOptions[solverName]()
+    return solverOptions[solverName](**kwargs)
 

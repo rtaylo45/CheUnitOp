@@ -9,7 +9,7 @@ setup(
     author='Zack Taylor',
     platforms=["Linux", "Mac OS-X"],
     #build_requires=['numpy>=1.8.0', 'setuptools'],
-    install_requires=['numpy', 'scipy'],
+    install_requires=['numpy', 'scipy', 'matplotlib'],
     package_data={'': ['*.txt']},
     license='Apache License, version 2.0',
     author_email='rztaylor5@gmail.com'

@@ -1,8 +1,11 @@
 from collections.abc import Iterable
-from CheUnitOp.species import ComponentSpecies
+
 import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.linalg import expm
+import matplotlib.pyplot as plt
+
+from CheUnitOp.species import ComponentSpecies
 
 class GenericSystem:
     """
@@ -25,6 +28,7 @@ class GenericSystem:
         self.areComponentFinalized = False
         self.areSpeciesFinalized = False
         self.solutionData = None
+        self.timeSteps = None
 
     def addSpecies(self, species):
         """
@@ -125,18 +129,33 @@ class GenericSystem:
         dt = tEnd/float(numSteps)
         A = A.toarray()
         for step in range(1, numSteps+1):
-            t = dt * step
             b = self.__buildInitialCondition()
             sol = expm(A * dt) @ b
             self.__unpackSolution(sol)
         # Unpacks the final solution to a dict for easy access
         self.__buildSolutionData()
+        self.timeSteps = np.linspace(0, tEnd, numSteps+1)
 
-    def plot(self, speciesName):
+    def plot(self, componentName = None, speciesName = None):
         """
         Plots the solution
         """
-        pass
+        if (speciesName and not componentName):
+            for component in self.components:
+                solution = self.getSolution(component.name, speciesName)
+                plt.plot(self.timeSteps, solution, label = "Tank A")
+
+            plt.legend()
+            plt.grid()
+            plt.title(f"{speciesName}")
+            plt.xlabel("Time [sec]")
+            plt.ylabel("Concentration")
+            plt.savefig(f"{self.name}_species_concentrations_in_operations.png")
+        
+        else:
+            print("Something went wrong")
+            exit()
+
 
     def getSolution(self, componentName = None, speciesName = None):
         """

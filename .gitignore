@@ -130,3 +130,7 @@ dmypy.json
 
 # pycharm shit
 .idea/
+
+# My stuff
+*.swp
+*.png

@@ -17,3 +17,15 @@ class Taylor(ODEExponentialTimeDifferencingBase):
 
     def solve(self, A, b, dt):
         pass
+
+    def preSolve(self):
+        pass
+
+    def postSolve(self):
+        pass
+
+    def _expmv(self, A, b, dt):
+        pass
+
+    def _expmv_tspan(self, A, b, dt):
+        pass

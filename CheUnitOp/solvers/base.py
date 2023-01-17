@@ -53,10 +53,3 @@ class ODEExponentialTimeDifferencingBase(ODELinearSolverBase):
     def postSolve(self):
         pass
 
-
-def Factory(solverName, *kargs, **kwargs):
-    solverOptions = {
-        "EXP": ODEExponentialTimeDifferencing
-    }
-    return solverOptions[solverName](*kargs, **kwargs)
-

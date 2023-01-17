@@ -2,11 +2,10 @@ from collections.abc import Iterable
 
 import numpy as np
 from scipy.sparse import csr_matrix
-from scipy.linalg import expm
 import matplotlib.pyplot as plt
 
 from CheUnitOp.species import ComponentSpecies
-import CheUnitOp.solver as CheUnitOpSolver
+import CheUnitOp.solvers.base as CheUnitOpSolver
 
 class GenericSystem:
     """

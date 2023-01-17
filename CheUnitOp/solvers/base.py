@@ -1,25 +1,21 @@
 import numpy as np
 import scipy.linalg
 from abc import ABC, abstractmethod
-import CheUnitOp.solvers.matrixExponential.factory as matExp
 
 
 class ODESolverBase(ABC):
     """Something"""
 
-    def __init__(self, **kwargs):
+    def __init__(self, *kargs, **kwargs):
         pass
-
 
     @abstractmethod
     def solve(self, A, b, dt):
         pass
 
-
     @abstractmethod
     def preSolve(self):
         pass
-
 
     @abstractmethod
     def postSolve(self):
@@ -32,37 +28,35 @@ class ODELinearSolverBase(ODESolverBase):
     isLinearSolver = True
 
     
-    def __init__(self, **kwargs):
-        super(ODELinearSolverBase, self).__init__(**kwargs)
+    def __init__(self, *kargs, **kwargs):
+        super(ODELinearSolverBase, self).__init__(*kargs, **kwargs)
 
 
-class ODEExponentialTimeDifferencing(ODELinearSolverBase):
+class ODEExponentialTimeDifferencingBase(ODELinearSolverBase):
     """Something"""
     
     isExponentialTimeDifferencing = True
 
 
-    def __init__(self, **kwargs):
+    def __init__(self, matrix_type='static', dt_type='static', *kargs, **kwargs):
         """Something"""
-        super(ODEExponentialTimeDifferencing, self).__init__(**kwargs)
-        self.matrixExp = scipy.linalg
+        super(ODEExponentialTimeDifferencingBase, self).__init__(*kargs, **kwargs)
+        self.matrix_type = matrix_type
+        self.dt_type = dt_type
 
-    
     def solve(self, A, b, dt):
-        return self.matrixExp.expm(A * dt) @ b
-
+        pass
 
     def preSolve(self):
         pass
-
 
     def postSolve(self):
         pass
 
 
-def Factory(solverName, **kwargs):
+def Factory(solverName, *kargs, **kwargs):
     solverOptions = {
-        "scipy": ODEExponentialTimeDifferencing
+        "EXP": ODEExponentialTimeDifferencing
     }
-    return solverOptions[solverName](**kwargs)
+    return solverOptions[solverName](*kargs, **kwargs)
 

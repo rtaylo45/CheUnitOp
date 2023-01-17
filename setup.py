@@ -1,4 +1,5 @@
 from distutils.core import setup
+from setuptools import find_packages
 
 setup(
     name='CheUnitOp',
@@ -7,7 +8,9 @@ setup(
     author='Zack Taylor',
     platforms=["Linux", "Mac OS-X"],
     install_requires=['numpy', 'scipy', 'matplotlib'],
-    packages=['CheUnitOp'],
+    #package_dir={'': 'CheUnitOp'},
+    packages=find_packages(),
+    include_package_data=True,
     license='Apache License, version 2.0',
     author_email='rztaylor5@gmail.com'
 )

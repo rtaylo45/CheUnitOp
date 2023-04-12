@@ -6,8 +6,8 @@ from abc import ABC, abstractmethod
 class ODESolverBase(ABC):
     """Something"""
 
-    def __init__(self, *kargs, **kwargs):
-        pass
+    def __init__(self, matrix_type='dense', *kargs, **kwargs):
+        self.matrix_type = matrix_type
 
     @abstractmethod
     def solve(self, A, b, dt):
